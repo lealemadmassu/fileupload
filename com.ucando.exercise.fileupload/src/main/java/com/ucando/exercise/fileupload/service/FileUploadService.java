@@ -28,7 +28,7 @@ import com.ucando.exercise.fileupload.domain.UploadedFile;
 
 @Service
 @Slf4j
-public class FileUploadService implements UploadService
+public class FileUploadService
 {
     @Autowired
     GridFsOperations gridFsOperations;
