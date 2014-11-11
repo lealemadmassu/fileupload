@@ -1,0 +1,110 @@
+<!doctype html>
+<html ng-app="fileUploader">
+<head>
+	<title>File Upload</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.datetimepicker/3.0.0/css/bootstrap-datetimepicker.min.css">
+	<link rel="stylesheet" href="styles/styles.css">
+</head>
+	<body>
+		<div class="container-full col-sm-2"  ng-controller="UploadCtrl">
+		
+		      <div class="row">
+		       
+		        <div class="col-lg-12 text-center v-center">
+		          
+		          <h1>File Upload</h1>
+		          <p class="lead">file Upload Service</p>
+		          
+		          <hr>
+		          
+		          <form id="fileMetatdtaForm" class=" col-lg-12 ">
+		            
+		            <div class="input-group input-group-lg col-sm-offset-4 col-sm-2 col-md-4">
+		              <input type="text" class="center-block form-control input-lg" title="Enter you Name." placeholder="UploaderName" ng-model="name" required>
+		            </div>
+		            
+	            	<div class="input-group input-group-lg col-sm-offset-4 col-sm-4">
+		              <input type="text" class="center-block form-control input-lg" title="Enter Date." placeholder="YYYY-MM-DD"
+                		data-bv-date="true"
+                		data-bv-date-format="YYYY-MM-DD"
+                		data-bv-date-message="The value is not a valid date" name="date" ng-model="date" required="true">
+		            </div>
+		            <br>
+		            <div class="input-group input-group-lg col-sm-offset-4 col-sm-4">
+		              <button  class="btn btn-primary btn-lg pull-left btn-file">Browse<input type="file" file-to-upload="myFile"></button>
+		               <button type="button" class="btn btn-success btn-lg pull-left"  ng-click="uploadFile()">Upload</button>
+		            </div>
+		          </form>
+		        </div>
+		      </div> <!-- /row -->
+		   
+		  	<br><br><br>
+		
+		</div> <!-- /container full -->
+		
+		<div class="container" ng-controller="ArchiveCtrl as archiveCtrl" >
+			<div class="row">
+				<form class="navbar-form" role="search">
+					<div class="col-sm-12 col-md-3 pull-right">
+						<div class="input-group" ng-controller="DatepickerCtrl">
+							<input type="text" class="form-control" datepicker-popup="{{format}}" ng-change="search(date,name);" placeholder="Pick a Date"   min="minDate" ng-model="date" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close" date-type="string" bs-datepicker/>
+							<span class="input-group-btn">
+							  <button type="button" class="btn btn-default"  ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+							</span>
+						</div>
+					</div>
+					<div class="col-sm-2 col-md-3 pull-right">          
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="UploaderName" ng-model="name" >
+							     <div class="input-group-btn">
+		                    <button class="btn btn-default" ng-click="search(date,name);" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+		                </div>
+						</div>	          
+					</div>
+				</form>
+			</div>
+		  
+			<div class="row">
+		        <div class="col-lg-12">
+					<table class="table table-hover" ng-hide="fileMetadatas.length==0">
+						<thead>
+						    <tr>
+						      <th>File Name</th>
+						      <th>File Size</th>
+						      <th>Upload Date</th>
+						      <th>Uploader Name</th>
+						      <th>Action</th>
+							</tr>
+						  </thead>
+						  <tbody>
+								<tr ng-repeat="metadata in fileMetadatas">
+									<td>
+										{{metadata.fileName}}
+									</td>
+									<td >
+										{{metadata.fileSize}}
+									</td> 
+									<td>
+										{{metadata.uploadingDate | date:'yyyy-MM-dd'}}
+									</td> 
+									<td>
+										{{metadata.uploaderName}}
+									</td>
+									<td >
+										<button ng-controller="DownloadCtrl" ng-click="downloadFile(metadata)" class="btn btn-mini btn btn-success" type="button" >Download</button>
+									</td> 
+								</tr>
+						  </tbody>
+					</table>
+		        </div>
+		    </div>
+		</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular.js"></script>
+ 	<script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.11.0/ui-bootstrap-tpls.js"></script>
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<script src="fileUploader.js"></script>
+	</body>
+</html>

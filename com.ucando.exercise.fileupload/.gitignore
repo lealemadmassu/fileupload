@@ -1,0 +1,17 @@
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+.project
+.settings
+target
+gwt-unitCache
+widgetsets
+logs
+bin
+.classpath
+.springBeans
+/manifest.yml
