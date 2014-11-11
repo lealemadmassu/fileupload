@@ -18,7 +18,7 @@ app.directive('fileToUpload', [ '$parse', function($parse) {
 
 app.service('FileReaderService', [ '$http', '$rootScope', function($http, $rootScope) {
 	this.search = function(date,name) {
-		$http.get("/archive/documents", {
+		$http.get("/fileupload/files", {
 			params : {
 			    date:date,
 				name : name
@@ -52,7 +52,7 @@ app.service('fileUpload', ['$http','FileReaderService', function($http, FileRead
 app.controller('DownloadCtrl', ['$scope', function($scope) {
     $scope.downloadFile = function(metadata) {
         console.log('file is ' + JSON.stringify(metadata));
-        var downloadUrl="/archive/document/"+metadata.id;
+        var downloadUrl="/fileupload/file/"+metadata.id;
         window.open(downloadUrl, '_blank', '');  
     }
 } ]);
@@ -64,14 +64,14 @@ app.controller('UploadCtrl', [ '$scope', 'fileUpload',function($scope, fileUploa
 				var date = $scope.date;
 				$scope.progressVisible = false
 				console.log('file is ' + JSON.stringify(file));
-				var uploadUrl = "/archive/upload";
+				var uploadUrl = "/fileupload/upload";
 				fileUpload.uploadFileToUrl(uploadUrl, file, name, date);
 			};
 		} ]);
 
 app.controller('ArchiveCtrl', function($scope, $http) {
 	$scope.search = function(date,name) {
-		$http.get("/archive/documents", {
+		$http.get("/fileupload/files", {
 			params : {
 			    date : date,
 				name:name

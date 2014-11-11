@@ -27,7 +27,7 @@ import com.ucando.exercise.fileupload.domain.UploadedFile;
 import com.ucando.exercise.fileupload.service.FileUploadService;
 
 @Controller
-@RequestMapping(value = "/archive")
+@RequestMapping(value = "/fileupload")
 @Slf4j
 public class FileUploadController
 {
@@ -52,7 +52,7 @@ public class FileUploadController
         return null;
     }
 
-    @RequestMapping(value = "/document/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/file/{id}", method = RequestMethod.GET)
     public @ResponseBody HttpEntity<byte[]> getDocument(@PathVariable String id) throws IOException
     {
         DownloadFile downloadFile = fileUploadService.getFileContent(id);
@@ -64,8 +64,9 @@ public class FileUploadController
         return new ResponseEntity<byte[]>(downloadFile.getFileData(), headers, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/documents", method = RequestMethod.GET)
-    public @ResponseBody List<FileMetadata> filterByUploadDateAndUploaderName(@RequestParam(value = "date", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ") Date date, @RequestParam(value = "name", required = false) String name)
+    @RequestMapping(value = "/files", method = RequestMethod.GET)
+    public @ResponseBody List<FileMetadata> filterByUploadDateAndUploaderName(
+            @RequestParam(value = "date", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ") Date date, @RequestParam(value = "name", required = false) String name)
     {
         return fileUploadService.findFileMetadata(date, name);
     }
